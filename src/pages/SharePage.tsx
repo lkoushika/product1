@@ -228,14 +228,6 @@ export default function SharePage({ page, onCreateAnother }: SharePageProps) {
           </p>
         </div>
 
-        <div className="text-center">
-          <button
-            onClick={onCreateAnother}
-            className={`font-sans text-sm ${theme.mutedColor} hover:underline transition-colors`}
-          >
-            Create another page
-          </button>
-        </div>
       </div>
     </div>
   );

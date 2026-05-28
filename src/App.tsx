@@ -3,6 +3,7 @@ import Landing from './pages/Landing';
 import Editor from './pages/Editor';
 import SharePage from './pages/SharePage';
 import ViewPage from './pages/ViewPage';
+import GatePage from './pages/GatePage';
 import { saveApologyPage, generateSlug } from './lib/supabase';
 import type { ApologyPage } from './lib/supabase';
 
@@ -13,6 +14,7 @@ export default function App() {
   const [publishedPage, setPublishedPage] = useState<ApologyPage | null>(null);
   const [isPublishing, setIsPublishing] = useState(false);
   const [viewSlug, setViewSlug] = useState<string | null>(null);
+  const [unlocked, setUnlocked] = useState(false);
 
   useEffect(() => {
     const path = window.location.pathname;
@@ -47,6 +49,10 @@ export default function App() {
 
   if (view === 'view' && viewSlug) {
     return <ViewPage slug={viewSlug} />;
+  }
+
+  if (!unlocked) {
+    return <GatePage onAccess={() => setUnlocked(true)} />;
   }
 
   if (view === 'landing') {

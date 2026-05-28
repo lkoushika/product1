@@ -1,9 +1,19 @@
 import { createClient } from '@supabase/supabase-js';
 
-// import.meta.env may not be typed in some TS configs; cast to any to avoid TS errors here
-const _env = (import.meta as any).env ?? {};
-const supabaseUrl: string = _env.VITE_SUPABASE_URL ?? '';
-const supabaseAnonKey: string = _env.VITE_SUPABASE_ANON_KEY ?? '';
+// Vite's import.meta.env typing for this project
+declare global {
+  interface ImportMetaEnv {
+    readonly VITE_SUPABASE_URL: string;
+    readonly VITE_SUPABASE_ANON_KEY: string;
+  }
+
+  interface ImportMeta {
+    readonly env: ImportMetaEnv;
+  }
+}
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
@@ -87,3 +97,11 @@ export function generateSlug(): string {
   const num = Math.floor(Math.random() * 9000) + 1000;
   return `${w1}-${w2}-${num}`;
 }
+
+export const ACCESS_PASSWORD = 'heartmends2026';
+
+export async function logAccess(): Promise<void> {
+  await supabase.from('access_logs').insert({ accessed_at: new Date().toISOString() });
+}
+
+
