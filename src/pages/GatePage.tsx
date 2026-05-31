@@ -79,3 +79,4 @@ export default function GatePage({ onAccess }: GatePageProps) {
     </div>
   );
 }
+

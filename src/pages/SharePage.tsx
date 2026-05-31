@@ -232,3 +232,6 @@ export default function SharePage({ page, onCreateAnother }: SharePageProps) {
     </div>
   );
 }
+
+
+
