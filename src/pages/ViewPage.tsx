@@ -3,6 +3,7 @@ import { Heart } from 'lucide-react';
 import { getApologyPage } from '../lib/supabase';
 import type { ApologyPage } from '../lib/supabase';
 import ApologyPageView from '../components/ApologyPageView';
+import ApologyOpenGate from '../components/ApologyOpenGate';
 
 interface ViewPageProps {
   slug: string;
@@ -12,6 +13,7 @@ export default function ViewPage({ slug }: ViewPageProps) {
   const [page, setPage] = useState<ApologyPage | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [opened, setOpened] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -47,6 +49,16 @@ export default function ViewPage({ slug }: ViewPageProps) {
           </p>
         </div>
       </div>
+    );
+  }
+
+  if (!opened) {
+    return (
+      <ApologyOpenGate
+        partnerName={page.partner_name}
+        themeId={page.theme}
+        onOpen={() => setOpened(true)}
+      />
     );
   }
 
